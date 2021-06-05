@@ -1,0 +1,912 @@
+@font-face {
+  font-family: "pacman";
+  src: url("https://raw.githubusercontent.com/maxi83c/Fonts/main/pacman.ttf");
+}
+
+$bg: #a1d6e6;
+// Border Color
+$bc: #264042;
+// Border Width
+$bw: 8px;
+
+$blue-ligther-2: #00cff3;
+$blue-lighter: #41d1ee;
+$blue-light: #00b8e6;
+$blue-dark: #0096b6;
+
+$grey-light: #366a7f;
+$grey-dark: #284f5f;
+
+$red: #ff5a59;
+$yellow: #e5d33a;
+
+$shadow-light: #64828d;
+
+$case-blue: #0096b6;
+
+$brick-border: #7aafbe;
+$brick: #95ccde;
+
+@mixin ps {
+  content: "";
+  position: absolute;
+}
+
+@mixin box($w, $h) {
+  width: $w;
+  height: $h;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: $bg;
+  margin: {
+    top: 50px;
+    bottom: 50px;
+  }
+}
+
+.arcade-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  z-index: 0;
+
+  .arcade-wall {
+    position: relative;
+
+    .block-1 {
+      position: relative;
+      overflow: hidden;
+      @include box(220px, 85px);
+
+      &::after {
+        @include ps();
+        @include box(260px, 100px);
+        left: 6px;
+        top: 28px;
+        background: $case-blue;
+        border-top: $bw solid $bc;
+        border-left: 4px solid $bc;
+        border-top-left-radius: 12px;
+        transform: rotate(-19deg);
+      }
+    }
+
+    .block-2 {
+      position: relative;
+      @include box(220px, 50px);
+      background: $case-blue;
+      border-left: $bw solid $bc;
+
+      &::before {
+        @include ps();
+        border-left: $bw solid $bc;
+        height: 10px;
+        top: -7px;
+        left: -8px;
+        border-radius: 2px;
+      }
+
+      &::after {
+        @include ps;
+        @include box(30px, 50px);
+        background: $case-blue;
+        border: {
+          bottom: $bw solid $bc;
+          left: 9px solid $bc;
+          right: 9px solid $bc;
+        }
+        transform: skew(-45deg);
+        right: 15px;
+        z-index: 1;
+      }
+    }
+
+    .block-3 {
+      position: relative;
+      @include box(220px, 180px);
+      background-color: $case-blue;
+      border-left: $bw solid $bc;
+
+      &::after {
+        @include ps;
+        @include box(30px, 180px);
+        background: $blue-light;
+        border: {
+          bottom: $bw solid $bc;
+          left: $bw solid $bc;
+          right: $bw solid $bc;
+        }
+        right: 40px;
+        z-index: 1;
+      }
+    }
+
+    .block-4 {
+      position: relative;
+      @include box(220px, 45px);
+      background-color: $case-blue;
+      border-left: $bw solid $bc;
+
+      &::after {
+        @include ps;
+        @include box(30px, 45px);
+        background: #00cff3;
+        border: {
+          bottom: $bw solid $bc;
+          left: $bw solid $bc;
+          right: $bw solid $bc;
+        }
+        right: 17px;
+        transform: skew(45deg);
+        z-index: 1;
+        border-bottom-right-radius: 2px;
+      }
+    }
+
+    .block-5 {
+      position: relative;
+      @include box(220px, 95px);
+      background-color: $case-blue;
+      border-left: $bw solid $bc;
+
+      &::after {
+        @include ps;
+        @include box(30px, 95px);
+        background: $blue-light;
+        border: {
+          bottom: $bw solid $bc;
+          left: $bw solid $bc;
+          right: $bw solid $bc;
+        }
+        right: -5px;
+        z-index: 1;
+        border-bottom-right-radius: 2px;
+      }
+    }
+
+    .block-6 {
+      position: relative;
+      @include box(220px, 25px);
+      background-color: $case-blue;
+      border-left: $bw solid $bc;
+
+      &::after {
+        @include ps;
+        @include box(30px, 25px);
+        background: $case-blue;
+        border: {
+          bottom: $bw solid $bc;
+          left: 9px solid $bc;
+          right: 9px solid $bc;
+        }
+        right: 8px;
+        z-index: 1;
+        transform: skew(-45deg);
+        border-bottom-left-radius: 2px;
+      }
+    }
+
+    .block-7 {
+      position: relative;
+      @include box(220px, 195px);
+      background-color: $case-blue;
+      border-left: $bw solid $bc;
+      border-bottom: $bw solid $bc;
+      border-bottom-left-radius: 4px;
+
+      &::after {
+        @include ps;
+        @include box(30px, 195px);
+        background: $blue-light;
+        border: {
+          bottom: $bw solid $bc;
+          left: 9px solid $bc;
+          right: 9px solid $bc;
+        }
+        right: 20px;
+        z-index: 1;
+        border-bottom-left-radius: 2px;
+      }
+    }
+
+    &.alt {
+      margin-left: -250px;
+      z-index: -1;
+
+      .block-2,
+      .block-6 {
+        background: linear-gradient(
+          136deg,
+          $case-blue 80%,
+          rgba(0, 0, 0, 0) 75%
+        );
+      }
+
+      .block-3,
+      .block-7 {
+        background: linear-gradient(
+          90deg,
+          $case-blue 80%,
+          rgba(0, 0, 0, 0) 75%
+        );
+      }
+
+      .block-4 {
+        background: linear-gradient(
+          45deg,
+          $case-blue 80%,
+          rgba(0, 0, 0, 0) 75%
+        );
+      }
+
+      .block-5 {
+        background: linear-gradient(
+          90deg,
+          $case-blue 90%,
+          rgba(0, 0, 0, 0) 75%
+        );
+      }
+
+      .block-2::before {
+        @include ps();
+        @include box(25px, 5px);
+        background-color: $bc;
+        border-radius: 2.5px;
+        z-index: 1;
+        transform: rotate(-45deg) translate(110px, 120px);
+      }
+
+      .block-6::before {
+        @include ps();
+        @include box(25px, 5px);
+        background-color: $bc;
+        border-radius: 2.5px;
+        right: 32px;
+        top: 3px;
+        z-index: 1;
+        transform: rotate(-45deg);
+      }
+    }
+  }
+
+  .arcade-mid {
+    position: relative;
+
+    .top {
+      .b1-cont {
+        display: flex;
+        position: relative;
+        left: -20px;
+
+        .border {
+          position: relative;
+          @include box(22px, 85px);
+          background: $blue-light;
+          border: {
+            top: $bw solid $bc;
+            bottom: $bw solid $bc;
+          }
+
+          &.left {
+            border-left: $bw solid $bc;
+            border-top-left-radius: 10px;
+          }
+
+          &.right {
+            border-right: $bw solid $bc;
+            border-top-right-radius: 10px;
+          }
+        }
+      }
+      .block-1 {
+        position: relative;
+        @include box(300px, 85px);
+        background: $blue-light;
+        background: linear-gradient(
+          315deg,
+          $blue-light 30%,
+          $blue-lighter 30%,
+          $blue-lighter 70%,
+          $blue-light 70%
+        );
+        border: $bw solid $bc;
+        box-shadow: inset -#{$bw} $bw $blue-lighter;
+
+        &::after {
+          @include ps();
+          @include box(150px, 13px);
+          background: $bc;
+          border-radius: 1px;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+
+      .block-2 {
+        position: relative;
+        left: -20px;
+        @include box(250px, 40px);
+        background: $grey-dark;
+        transform: skewX(-45deg);
+        border: {
+          bottom: $bw solid $bc;
+          right: #{$bw + 2px} solid $bc;
+          left: #{$bw + 2px} solid $bc;
+        }
+
+        &::before,
+        &::after {
+          @include ps();
+          left: -2px;
+          @include box(40px, 4px);
+          background-color: $bc;
+          border: {
+            top-right-radius: 3px;
+            bottom-right-radius: 3px;
+          }
+          transform: skewX(45deg);
+        }
+
+        &::before {
+          top: 6px;
+          @include box(40px, 4px);
+        }
+
+        &::after {
+          top: 15px;
+          @include box(80px, 4px);
+        }
+      }
+    }
+
+    .screen {
+      position: relative;
+      left: -40px;
+      @include box(250px, 210px);
+      background-color: #446068;
+      background-image: radial-gradient(rgba($bc, 0.7) 40%, transparent 40%),
+        radial-gradient(rgba(white, 0.2) 50%, transparent 50%);
+      background-size: 730px 540px, 30px 30px;
+      background-repeat: no-repeat;
+      background-position: -310px -25px, 94% 39%;
+      border: $bw solid $bc;
+      border-top: none;
+      border-left: none;
+
+      .pacman-container {
+        overflow: hidden;
+        position: absolute;
+        @include box(250px, 210px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0.8;
+
+        &::before {
+          content: "";
+          width: 130px;
+          height: 200px;
+          position: absolute;
+          right: 8px;
+          top: 0;
+          background-image: radial-gradient(gold 14%, transparent 11%);
+          background-size: 100px 100px;
+          background-repeat: repeat-x;
+          background-position: 200px center;
+          animation: move-dots 1.6s linear infinite;
+          z-index: 1;
+        }
+
+        &::after {
+          content: "";
+          width: 13px;
+          height: 13px;
+          position: absolute;
+          border-radius: 50%;
+          background-color: #446068;
+          top: 70px;
+          left: 120px;
+          z-index: 1;
+        }
+      }
+
+      .pacman {
+        width: 100px;
+        height: 100px;
+        background-image: linear-gradient(90deg, yellow 50%, transparent 50%);
+        border-radius: 50%;
+        overflow: hidden;
+        position: absolute;
+        z-index: 1;
+      }
+
+      .pacman::after,
+      .pacman::before {
+        content: "";
+        width: 100px;
+        height: 50px;
+        position: absolute;
+        left: 0;
+        background-color: yellow;
+        animation: eat 0.4s linear infinite alternate;
+      }
+
+      .pacman::after {
+        top: 0;
+        transform: rotate(-45deg);
+        transform-origin: center bottom;
+      }
+      .pacman::before {
+        top: 50px;
+        transform: rotate(45deg);
+        transform-origin: center top;
+      }
+
+      &::before {
+        @include ps();
+        @include box(70px, 40px);
+        border-radius: 50%;
+        background: rgba(white, 0.2);
+        top: 20px;
+        right: 30px;
+        transform: rotate(45deg);
+      }
+    }
+
+    .mid {
+      .block-1 {
+        position: relative;
+        left: -20px;
+        @include box(250px, 40px);
+        background: $grey-light;
+        transform: skewX(45deg);
+        border: {
+          bottom: $bw solid $bc;
+          right: #{$bw + 2px} solid $bc;
+          left: #{$bw + 2px} solid $bc;
+        }
+
+        .joystick {
+          position: absolute;
+          left: 20%;
+          transform: skewX(-45deg) translateY(-35px);
+          @include box(22px, 60px);
+          background: #d6d6d6;
+          border-radius: 10px;
+          border: $bw solid $bc;
+          box-shadow: inset 0 24px 2px -1px #979a9a;
+
+          // Bolita roja
+          &::before {
+            @include ps();
+            @include box(40px, 40px);
+            border-radius: 50%;
+            border: $bw solid $bc;
+            top: -20px;
+            left: 50%;
+            transform: translatex(-50%) rotate(45deg);
+            background-color: $red;
+            background-image: radial-gradient(
+                24px 16px,
+                lighten($red, 15%),
+                lighten($red, 15%) 25%,
+                transparent 25%
+              ),
+              radial-gradient(
+                7px 7px,
+                lighten($red, 15%),
+                lighten($red, 15%) 25%,
+                transparent 25%
+              );
+            background-size: 2.1em;
+            background-position: -6px -5px, 3px 0px;
+            background-repeat: no-repeat;
+          }
+        }
+
+        .button {
+          position: absolute;
+          top: 2px;
+          transform: skewX(-45deg);
+          @include box(30px, 25px);
+          border-radius: 50%;
+          border: $bw solid $bc;
+          box-shadow: inset -2px 2px 5px -2px #fafafa;
+
+          &.yellow {
+            right: 30%;
+            background-color: $yellow;
+          }
+
+          &.red {
+            right: 10%;
+            background-color: $red;
+          }
+        }
+      }
+
+      .block-2 {
+        position: relative;
+        @include box(250px, 70px);
+        background: $grey-light;
+        border: {
+          bottom: $bw solid $bc;
+          right: $bw solid $bc;
+        }
+        box-shadow: inset 0 5px 2px $shadow-light;
+
+        .speakers {
+          position: absolute;
+          @include box(5px, 14px);
+          background-color: $bc;
+          border-radius: 3px;
+          left: 15px;
+          top: 50%;
+          transform: translateY(-50%);
+          box-shadow: 10px -4px $bc, 10px 4px $bc, 20px -8px $bc, 20px 0px $bc,
+            20px 8px $bc, 30px -4px $bc, 30px 4px $bc, 40px -0px $bc;
+        }
+
+        .coins {
+          position: absolute;
+          @include box(38px, 44px);
+          border: 5px solid $bc;
+          right: 20px;
+          top: 50%;
+          transform: translateY(-50%);
+          border-radius: 1px;
+          box-shadow: inset -5px 5px $shadow-light;
+          background-color: $grey-dark;
+
+          &::before {
+            @include ps();
+            @include box(5px, 15px);
+            border-radius: 5px;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: $bc;
+          }
+
+          &::after {
+            @include ps();
+            @include box(15px, 5px);
+            border-radius: 5px;
+            bottom: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: $bc;
+          }
+        }
+      }
+
+      .block-3 {
+        position: relative;
+        left: -10px;
+        @include box(250px, 20px);
+        background: $grey-dark;
+        transform: skewX(-45deg);
+        border: {
+          bottom: $bw solid $bc;
+          right: #{$bw + 2px} solid $bc;
+        }
+      }
+    }
+
+    .bottom {
+      .block-1 {
+        display: grid;
+        place-items: center;
+        position: relative;
+        overflow: hidden;
+        left: -20px;
+        @include box(250px, 210px);
+        background-color: $grey-light;
+        background-image: radial-gradient(
+          rgba(255, 255, 255, 0.1) 40%,
+          transparent 40%
+        );
+        background-size: 800px 540px;
+        background-repeat: no-repeat;
+        background-position: -240px -280px;
+        border: $bw solid $bc;
+        border-left: none;
+        border-top: none;
+
+        &::before {
+          @include ps();
+          @include box(5px, 34px);
+          background-color: $bc;
+          border-radius: 3px;
+          bottom: -2px;
+          right: 10px;
+          box-shadow: -12px 12px $bc;
+        }
+
+        .box-1 {
+          display: flex;
+          justify-content: center;
+          position: relative;
+          @include box(120px, 100px);
+          border: 5px solid $bc;
+          border-radius: 2px;
+          box-shadow: inset -4px 4px $shadow-light;
+          background-color: $grey-dark;
+
+          &::before {
+            @include ps();
+            @include box(5px, 5px);
+            background-color: $bc;
+            top: 10px;
+            right: 11px;
+            border-radius: 5px;
+            box-shadow: -10px 0px $bc;
+          }
+
+          .box-2 {
+            position: relative;
+            top: 20px;
+            @include box(80%, 70%);
+            border: 5px solid $bc;
+            border-radius: 2px;
+            box-shadow: inset -4px 4px $shadow-light;
+            background-color: $grey-dark;
+
+            &::before {
+              @include ps();
+              @include box(20px, 20px);
+              top: 50%;
+              left: 10px;
+              transform: translateY(-50%);
+              border: 5px solid $bc;
+              border-radius: 100%;
+              box-shadow: inset -2px 2px 1px $shadow-light;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.bg {
+  position: absolute;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  top: 150px;
+
+  .brick-block-1 {
+    position: relative;
+    left: -390px;
+    top: 240px;
+
+    .brick-1,
+    .brick-2 {
+      position: absolute;
+      @include box(80px, 40px);
+      border: 6px solid $brick-border;
+      border-radius: 10px;
+      background-color: $brick;
+    }
+
+    .brick-1 {
+      &::after {
+        @include ps();
+        @include box(20px, 6px);
+        background-color: $brick-border;
+        border-radius: 3px;
+        bottom: -6px;
+        right: -30px;
+      }
+    }
+
+    .brick-2 {
+      top: -34px;
+      left: -40px;
+      &::after {
+        @include ps();
+        @include box(40px, 6px);
+        background-color: $brick-border;
+        border-radius: 3px;
+        top: -6px;
+        left: -30px;
+      }
+    }
+  }
+
+  .brick-block-2 {
+    position: relative;
+    right: -335px;
+    top: 60px;
+
+    .brick-1,
+    .brick-2,
+    .brick-3 {
+      position: absolute;
+      @include box(80px, 40px);
+      border: 6px solid $brick-border;
+      border-radius: 10px;
+      background-color: $brick;
+    }
+
+    .brick-1 {
+      &::after {
+        @include ps();
+        @include box(15px, 6px);
+        background-color: $brick-border;
+        border-radius: 3px;
+        bottom: -6px;
+        right: -16px;
+        box-shadow: 10px 0 $brick-border, 30px 0 $brick-border;
+      }
+    }
+
+    .brick-2 {
+      top: -34px;
+      left: -40px;
+      &::after {
+        @include ps();
+        @include box(120px, 6px);
+        background-color: $brick-border;
+        border-radius: 3px;
+        top: -6px;
+        left: -30px;
+      }
+    }
+
+    .brick-3 {
+      left: -74px;
+    }
+  }
+}
+
+.extra {
+  position: relative;
+  width: 500px;
+  margin: 0 auto;
+
+  .plug {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    @include box(70px, 70px);
+    background-color: #d6d6d6;
+    border-radius: 13px;
+    border: $bw solid $bc;
+    top: -134px;
+    left: -126px;
+    box-shadow: -17px 0 0 -8px #c4c4c4, -17px 0 0 $bc;
+
+    &::before {
+      @include ps();
+      border-radius: 50%;
+      @include box(38px, 38px);
+      border: $bw solid $bc;
+      background: $grey-light;
+    }
+
+    &::after {
+      @include ps();
+      border-radius: 50%;
+      @include box(8px, 8px);
+      background: $bc;
+    }
+  }
+
+  .wire {
+    position: absolute;
+    @include box(80px, 60px);
+    border-bottom-left-radius: 20px;
+    border: {
+      bottom: $bw solid $bc;
+      left: $bw solid $bc;
+    }
+    top: -100px;
+    left: -95px;
+  }
+}
+
+.ground {
+  margin: 0 auto;
+  position: relative;
+  top: -8px;
+  @include box(800px, $bw);
+  border-radius: $bw;
+  background-color: $bc;
+
+  &::before {
+    @include ps();
+    @include box(8px, 8px);
+    border-radius: 4px;
+    background: $bc;
+    right: -16px;
+  }
+
+  &::after {
+    @include ps();
+    @include box(30px, 8px);
+    border-radius: 4px;
+    background: $bc;
+    left: -46px;
+  }
+}
+
+.detail {
+  position: absolute;
+
+  &.detail-1 {
+    @include box(30px, 5px);
+    background: $bc;
+    border-radius: 4px;
+    top: 140px;
+    left: 30px;
+    z-index: 1;
+    transform: rotate(20deg);
+    box-shadow: 45px 0 $bc;
+
+    &:before {
+      @include ps();
+      @include box(30px, 5px);
+      left: 13px;
+      border-radius: 4px;
+      background: $bc;
+      transform: rotate(-90deg);
+      box-shadow: -10px 0 $bc, 40px 0 $bc, -30px 24px $bc, -15px 24px $bc,
+        15px 24px $bc, 25px 24px $bc;
+    }
+
+    &:after {
+      @include ps();
+      @include box(5px, 5px);
+      background-color: $bc;
+      left: 50px;
+      top: -55px;
+      border-radius: 2.5px;
+    }
+  }
+
+  &.detail-2 {
+    @include box(5px, 100px);
+    background: $bc;
+    border-radius: 4px;
+    bottom: 190px;
+    left: 15px;
+    z-index: 1;
+
+    &:after {
+      @include ps();
+      @include box(5px, 20px);
+      background-color: $bc;
+      bottom: -190px;
+      border-radius: 2.5px;
+    }
+  }
+}
+
+// https://codepen.io/baumannzone/pen/poRmxmQ?editors=0100
+
+@keyframes eat {
+  to {
+    transform: rotate(0);
+  }
+}
+
+@keyframes move-dots {
+  to {
+    background-position: 0px center;
+  }
+}
